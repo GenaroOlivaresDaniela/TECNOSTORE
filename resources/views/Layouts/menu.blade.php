@@ -19,7 +19,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-    <a class="nav-link" href="/">
+    <a class="nav-link" href="/inicio">
     <i class="fa-solid fa-house"></i>        
     <span>INICIO</span></a>
 </li>
@@ -140,7 +140,8 @@
         <!-- Cerrar sesion -->
         <div class="container-fluid">
         <h1 class="display-5 fw-bolder">           </h1>
-                <a class="btn btn-danger m-2"  href="/login" >Cerrar Sesion</a>
+                <a class="btn btn-danger m-2"  href="{{ route('logout.perform') }}" >Cerrar Sesion</a>
+              
 
 </div>
 

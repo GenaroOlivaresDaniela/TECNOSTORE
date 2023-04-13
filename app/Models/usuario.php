@@ -13,7 +13,8 @@ class usuario extends Model
         'correo',
         'contraseña',
         'img_perfil',
-        'type_id'
+        'type_id',
+        'activo'
             ];
              protected $hidden =[
                 'contraseña'

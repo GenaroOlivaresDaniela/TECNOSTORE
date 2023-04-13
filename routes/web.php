@@ -10,8 +10,9 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductoProduccioneController;
-use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,24 +27,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-//LOGIN ROUTES
-Route::get('/', function () { return view('welcome' );})->middleware('auth');
-Route::get('/register', [RegisterController::class, 'create'])
-->name('register.index');
-Route::post('/register', [RegisterController::class, 'store'])
-->name('register.store');
-Route::get('/login', [SessionsController::class, 'create'])
-->name('login.index');
-Route::post('/login', [SessionsController::class, 'store'])
-->name('login.store');
-Route::get('/logout', [essionsController::class, 'destroy'])
-->name('login.destroy');
+//REGISTER 
+Route::get('/registro',  [RegisterController::class, 'show'])->name('registro.show');
+Route::post('/registro', [RegisterController::class, 'registro'])->name('registro.registro');
 
 
-Route::post('/register',[UsuariosController::class,'validar'])->name('validar');
-Route::get('principal',[UsuariosController::class,'principal'])->name('principal');
+//LOGIN 
+Route::get('/',  [LoginController::class, 'show'])->name('login.show');
+ Route::post('valida', [LoginController::class, 'valida'])->name('valida');
 
-Route::get('/inicio', [\App\Http\Controllers\inicio::class, 'index']);
+
+//LOGOUT
+Route::get('/logout',  [LogoutController::class,'perform'])->name('logout.perform');
+
+
+
+
+//
+
+Route::get('/inicio', [\App\Http\Controllers\inicio::class, 'index'])->name('inicio');
+Route::post('/inicio', [\App\Http\Controllers\inicio::class, 'index'])->name('inicio');
 
 Route::resource('typeuser', TypeUserController::class);
 Route::resource('empresa', EmpresaController::class);
@@ -59,8 +62,3 @@ Route::resource('productoproduccion', ProductoProduccioneController::class);
 
 
 //AJAX-CRUD ROUTES
-Route::post('/store', [UsuarioController::class, 'store'])->name('store');
-Route::get('/fetch-all', [UsuarioController::class, 'fetchAll'])->name('fetchAll');
-Route::get('/edit', [UsuarioController::class, 'edit'])->name('edit');
-Route::post('/update', [UsuarioController::class, 'update'])->name('update');
-Route::post('/delete', [UsuarioController::class, 'delete'])->name('delete');

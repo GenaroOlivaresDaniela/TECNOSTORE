@@ -2,39 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\RegistroRequest;
 use App\Models\type_user;
 use App\Models\usuario;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
-    public function create () {
-        $typeusers = type_user::all('id','name');
+    //
+    public function show(){
+      
         
-        return view('auth.register', compact('typeusers'));
+        return view('auth.registro');
     }
-    
 
-    public function store(Request $request){
-        //dd($request->all());
-        $this->validate(request(), [
-            'nombre' => 'required',
-            'email' => 'required|email',
-            'img_perfil' => 'required',
-            'type_id' => 'required',
-            
-        ]);
 
-        $usuario = $request->all();
-        if(isset($usuario["img_perfil"])){
-            $usuario["img_perfil"]=$filename=time().'.'.$usuario["img_perfil"]->extension();
-            $request->img_perfil->move(public_path('img_perfil'),$filename);
-        }
-        $usuario = usuario::create(request(['nombre', 'correo', 'contraseña', 'img_perfil', 'type_id'])); 
+    public function registro(RegisterRequest $request){
+ 
+       
+        $user = usuario::create($request->validated());
+        return redirect('/login')->with('success','ususario creado correctmente');
 
-        auth()->login($usuario);
-        return redirect()->to('/');
-    }
-    
-    
+
+}
 }
